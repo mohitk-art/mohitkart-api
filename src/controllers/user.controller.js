@@ -10,6 +10,7 @@ dotenv.config();
  *                              User Controller
  ******************************************************************************/
 class UserController {
+
     getAllUsers = async (req, res, next) => {
         let userList = await UserModel.find();
         if (!userList.length) {
@@ -21,7 +22,7 @@ class UserController {
             return userWithoutPassword;
         });
 
-        res.send(userList);
+        res.send({success:true, data:userList});
     };
 
     getUserById = async (req, res, next) => {
@@ -32,7 +33,7 @@ class UserController {
 
         const { password, ...userWithoutPassword } = user;
 
-        res.send(userWithoutPassword);
+        res.send({success:true, data:userWithoutPassword});
     };
 
     getUserByuserName = async (req, res, next) => {
@@ -43,13 +44,13 @@ class UserController {
 
         const { password, ...userWithoutPassword } = user;
 
-        res.send(userWithoutPassword);
+        res.send({success:true, data:userWithoutPassword});
     };
 
     getCurrentUser = async (req, res, next) => {
         const { password, ...userWithoutPassword } = req.currentUser;
 
-        res.send(userWithoutPassword);
+        res.send({success:true, data:userWithoutPassword});
     };
 
     createUser = async (req, res, next) => {
@@ -63,7 +64,7 @@ class UserController {
             throw new HttpException(500, 'Something went wrong');
         }
 
-        res.status(201).send('User was created!');
+        res.status(200).send({ success:true, message:'User was created!'});
     };
 
     updateUser = async (req, res, next) => {

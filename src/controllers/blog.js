@@ -102,4 +102,4 @@ class BlogController {
 /******************************************************************************
  *                               Export
  ******************************************************************************/
-module.exports = new UserController;
+module.exports = new BlogController;
