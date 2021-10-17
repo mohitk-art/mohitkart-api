@@ -105,13 +105,13 @@ class UserController {
         const user = await UserModel.findOne({ email });
 
         if (!user) {
-            throw new HttpException(401, 'Unable to login!');
+            throw new HttpException(404, 'Unable to login!');
         }
 
         const isMatch = await bcrypt.compare(pass, user.password);
 
         if (!isMatch) {
-            throw new HttpException(401, 'Incorrect password!');
+            throw new HttpException(404, 'Incorrect password!');
         }
 
         // user matched!
@@ -122,7 +122,7 @@ class UserController {
 
         const { password, ...userWithoutPassword } = user;
 
-        res.send({ ...userWithoutPassword, token });
+        res.send({data:{ ...userWithoutPassword, access_token:token },success:true});
     };
 
     checkValidation = (req) => {
